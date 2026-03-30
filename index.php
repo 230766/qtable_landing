@@ -102,7 +102,7 @@ if ($err_code === 'required') {
                     <?php endfor; ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_translation_option')) ?></li>
                 </ul>
-                <a href="https://register.qtable.cloud/#plan-starter" target="_blank" rel="noopener noreferrer" class="plan-btn outline"><?= htmlspecialchars(t('plan_starter_btn')) ?></a>
+                <a href="<?= htmlspecialchars(qtable_register_url('plan-starter')) ?>" target="_blank" rel="noopener noreferrer" class="plan-btn outline"><?= htmlspecialchars(t('plan_starter_btn')) ?></a>
                 <p class="plan-vat-note"><span class="plan-vat-asterisk" aria-hidden="true">*</span> <?= htmlspecialchars(t('plan_vat_note')) ?></p>
             </div>
             <div class="plan-card featured">
@@ -121,12 +121,12 @@ if ($err_code === 'required') {
                 </div>
                 <p class="plan-desc"><?= htmlspecialchars(t('plan_pro_desc')) ?></p>
                 <ul class="plan-features">
-                    <?php for ($i = 1; $i <= 7; $i++): ?>
+                    <?php for ($i = 1; $i <= 6; $i++): ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_p' . $i)) ?></li>
                     <?php endfor; ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_translation_option')) ?></li>
                 </ul>
-                <a href="https://register.qtable.cloud/#plan-pro" target="_blank" rel="noopener noreferrer" class="plan-btn primary"><?= htmlspecialchars(t('plan_pro_btn')) ?></a>
+                <a href="<?= htmlspecialchars(qtable_register_url('plan-pro')) ?>" target="_blank" rel="noopener noreferrer" class="plan-btn primary"><?= htmlspecialchars(t('plan_pro_btn')) ?></a>
                 <p class="plan-vat-note"><span class="plan-vat-asterisk" aria-hidden="true">*</span> <?= htmlspecialchars(t('plan_vat_note')) ?></p>
             </div>
             <div class="plan-card">
@@ -144,12 +144,12 @@ if ($err_code === 'required') {
                 </div>
                 <p class="plan-desc"><?= htmlspecialchars(t('plan_enterprise_desc')) ?></p>
                 <ul class="plan-features">
-                    <?php for ($i = 1; $i <= 7; $i++): ?>
+                    <?php for ($i = 1; $i <= 8; $i++): ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_e' . $i)) ?></li>
                     <?php endfor; ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_translation_inc')) ?></li>
                 </ul>
-                <a href="https://register.qtable.cloud/#plan-enterprise" target="_blank" rel="noopener noreferrer" class="plan-btn outline"><?= htmlspecialchars(t('plan_enterprise_btn')) ?></a>
+                <a href="<?= htmlspecialchars(qtable_register_url('plan-enterprise')) ?>" target="_blank" rel="noopener noreferrer" class="plan-btn outline"><?= htmlspecialchars(t('plan_enterprise_btn')) ?></a>
                 <p class="plan-vat-note"><span class="plan-vat-asterisk" aria-hidden="true">*</span> <?= htmlspecialchars(t('plan_vat_note')) ?></p>
             </div>
         </div>
@@ -161,6 +161,112 @@ if ($err_code === 'required') {
         <div class="comparison-wrap comparison-hidden" id="comparisonTable">
             <?php qtable_render_comparison_table(); ?>
         </div>
+        </div>
+    </section>
+
+    <!-- Rekentool (QTABLE potentieel): CTA-banner + modal na knop -->
+    <section id="roi-calculator" class="section-roi-outer" aria-labelledby="roi-banner-heading" data-rating-tip="<?= htmlspecialchars(t('roi_result_rating'), ENT_QUOTES, 'UTF-8') ?>">
+        <div class="roi-intro-banner" id="roiIntroBanner">
+            <div class="roi-intro-banner-inner">
+                <div class="roi-intro-copy">
+                    <div class="roi-intro-copy-inner">
+                        <h2 id="roi-banner-heading" class="roi-banner-heading"><?= htmlspecialchars(t('roi_banner_title')) ?></h2>
+                        <p class="roi-banner-lead"><?= htmlspecialchars(t('roi_banner_text')) ?></p>
+                        <button type="button" class="roi-banner-cta" id="roiShowCalculator" aria-expanded="false" aria-controls="roiModal"><?= htmlspecialchars(t('roi_banner_btn')) ?></button>
+                    </div>
+                </div>
+                <div class="roi-intro-media" role="presentation">
+                    <img src="images/qtable_menu.png" alt="" class="roi-intro-media-img" width="945" height="630" decoding="async" loading="lazy">
+                </div>
+            </div>
+        </div>
+
+        <div class="roi-modal" id="roiModal" hidden aria-hidden="true">
+            <div class="roi-modal-backdrop" id="roiModalBackdrop" tabindex="-1"></div>
+            <div class="roi-modal-dialog" id="roiModalDialog" role="dialog" aria-modal="true" aria-labelledby="roi-title">
+                <button type="button" class="roi-modal-close" id="roiModalClose" aria-label="<?= htmlspecialchars(t('roi_modal_close')) ?>">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        <div class="roi-calculator-panel section section-roi bg-light" id="roiCalculatorPanel">
+        <h2 id="roi-title" class="section-title"><?= htmlspecialchars(t('roi_title')) ?></h2>
+        <p class="section-subtitle"><?= htmlspecialchars(t('roi_subtitle')) ?></p>
+        <p class="roi-week-hint"><?= htmlspecialchars(t('roi_week_hint')) ?></p>
+
+        <form class="roi-form" id="roiForm" onsubmit="return false;">
+            <div class="roi-card">
+                <span class="roi-label"><?= htmlspecialchars(t('roi_digital_label')) ?></span>
+                <div class="roi-radio-row" role="radiogroup" aria-label="<?= htmlspecialchars(t('roi_digital_label')) ?>">
+                    <label class="roi-radio"><input type="radio" name="roi_digital" value="yes" id="roi_dig_yes"> <?= htmlspecialchars(t('roi_digital_yes')) ?></label>
+                    <label class="roi-radio"><input type="radio" name="roi_digital" value="no" id="roi_dig_no" checked> <?= htmlspecialchars(t('roi_digital_no')) ?></label>
+                </div>
+            </div>
+
+            <div class="roi-grid">
+                <fieldset class="roi-fieldset">
+                    <legend><?= htmlspecialchars(t('roi_lunch')) ?></legend>
+                    <div class="roi-fields">
+                        <label class="roi-field"><span><?= htmlspecialchars(t('roi_guests')) ?></span><input type="number" name="roi_guests_lunch" id="roi_guests_lunch" min="0" step="1" value="0"></label>
+                        <label class="roi-field"><span><?= htmlspecialchars(t('roi_avg_bill')) ?></span><input type="number" name="roi_avg_lunch" id="roi_avg_lunch" min="0" step="0.01" value="0"></label>
+                        <label class="roi-field"><span><?= htmlspecialchars(t('roi_reservations')) ?></span><input type="number" name="roi_res_lunch" id="roi_res_lunch" min="0" step="1" value="0"></label>
+                        <label class="roi-field"><span><?= htmlspecialchars(t('roi_noshows')) ?></span><input type="number" name="roi_ns_lunch" id="roi_ns_lunch" min="0" step="1" value="0"></label>
+                    </div>
+                    <div class="roi-days" aria-label="<?= htmlspecialchars(t('roi_days_open')) ?> (<?= htmlspecialchars(t('roi_lunch')) ?>)">
+                        <span class="roi-days-label"><?= htmlspecialchars(t('roi_days_open')) ?></span>
+                        <?php
+                        $days = ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'];
+                        foreach ($days as $d):
+                        ?>
+                        <label class="roi-day"><input type="checkbox" name="roi_lunch_<?= $d ?>" checked> <?= htmlspecialchars(t('roi_day_' . $d)) ?></label>
+                        <?php endforeach; ?>
+                    </div>
+                </fieldset>
+
+                <fieldset class="roi-fieldset">
+                    <legend><?= htmlspecialchars(t('roi_dinner')) ?></legend>
+                    <div class="roi-fields">
+                        <label class="roi-field"><span><?= htmlspecialchars(t('roi_guests')) ?></span><input type="number" name="roi_guests_dinner" id="roi_guests_dinner" min="0" step="1" value="0"></label>
+                        <label class="roi-field"><span><?= htmlspecialchars(t('roi_avg_bill')) ?></span><input type="number" name="roi_avg_dinner" id="roi_avg_dinner" min="0" step="0.01" value="0"></label>
+                        <label class="roi-field"><span><?= htmlspecialchars(t('roi_reservations')) ?></span><input type="number" name="roi_res_dinner" id="roi_res_dinner" min="0" step="1" value="0"></label>
+                        <label class="roi-field"><span><?= htmlspecialchars(t('roi_noshows')) ?></span><input type="number" name="roi_ns_dinner" id="roi_ns_dinner" min="0" step="1" value="0"></label>
+                    </div>
+                    <div class="roi-days" aria-label="<?= htmlspecialchars(t('roi_days_open')) ?> (<?= htmlspecialchars(t('roi_dinner')) ?>)">
+                        <span class="roi-days-label"><?= htmlspecialchars(t('roi_days_open')) ?></span>
+                        <?php foreach ($days as $d): ?>
+                        <label class="roi-day"><input type="checkbox" name="roi_dinner_<?= $d ?>" checked> <?= htmlspecialchars(t('roi_day_' . $d)) ?></label>
+                        <?php endforeach; ?>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="roi-card roi-google-wrap">
+                <label class="roi-field roi-google">
+                    <span><?= htmlspecialchars(t('roi_google')) ?></span>
+                    <input type="number" name="roi_google" id="roi_google" min="0" max="5" step="0.1" value="" placeholder="—">
+                </label>
+            </div>
+
+            <div class="roi-actions">
+                <button type="button" class="roi-btn" id="roiBtn"><?= htmlspecialchars(t('roi_btn')) ?></button>
+            </div>
+        </form>
+
+        <div class="roi-results" id="roiResults" hidden>
+            <h3 class="roi-results-title"><?= htmlspecialchars(t('roi_result_intro')) ?></h3>
+            <div class="roi-result-cards">
+                <div class="roi-result-card">
+                    <span class="roi-result-label"><?= htmlspecialchars(t('roi_result_loss')) ?></span>
+                    <span class="roi-result-value" id="roiValLoss">—</span>
+                </div>
+                <div class="roi-result-card roi-result-highlight">
+                    <span class="roi-result-label"><?= htmlspecialchars(t('roi_result_recover')) ?></span>
+                    <span class="roi-result-value" id="roiValRecover">—</span>
+                </div>
+            </div>
+            <p class="roi-rating-tip" id="roiRatingTip" hidden></p>
+            <p class="roi-disclaimer"><?= htmlspecialchars(t('roi_disclaimer')) ?></p>
+        </div>
+        </div>
+            </div>
         </div>
     </section>
 
@@ -219,5 +325,6 @@ if ($err_code === 'required') {
 
 <?php include 'includes/footer.php'; ?>
     <script src="js/main.js?v=<?= file_exists(__DIR__ . '/js/main.js') ? (int) filemtime(__DIR__ . '/js/main.js') : '1' ?>"></script>
+    <script src="js/roi-calculator.js?v=<?= file_exists(__DIR__ . '/js/roi-calculator.js') ? (int) filemtime(__DIR__ . '/js/roi-calculator.js') : '1' ?>"></script>
 </body>
 </html>

@@ -9,6 +9,24 @@ if (!defined('QTABLE_LANGS')) {
 
 $GLOBALS['qtable_lang'] = 'nl';
 
+/** Cookie gedeeld over *.qtable.cloud zodat register.qtable.cloud dezelfde taal ziet. */
+$qtable_lang_cookie_opts = static function (): array {
+    $opts = [
+        'expires' => time() + 365 * 86400,
+        'path' => '/',
+        'samesite' => 'Lax',
+        'httponly' => false,
+    ];
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        $opts['secure'] = true;
+    }
+    $host = $_SERVER['HTTP_HOST'] ?? '';
+    if ($host !== '' && preg_match('/(^|\.)qtable\.cloud$/i', $host)) {
+        $opts['domain'] = '.qtable.cloud';
+    }
+    return $opts;
+};
+
 $qtable_normalize_lang = static function (?string $code): ?string {
     if ($code === null || $code === '') {
         return null;
@@ -23,22 +41,14 @@ if (isset($_GET['lang'])) {
     $chosen = $qtable_normalize_lang($_GET['lang']);
     if ($chosen !== null && in_array($chosen, QTABLE_LANGS, true)) {
         $GLOBALS['qtable_lang'] = $chosen;
-        setcookie('qtable_lang', $GLOBALS['qtable_lang'], [
-            'expires' => time() + 365 * 86400,
-            'path' => '/',
-            'samesite' => 'Lax',
-        ]);
+        setcookie('qtable_lang', $GLOBALS['qtable_lang'], $qtable_lang_cookie_opts());
     }
 } elseif (!empty($_COOKIE['qtable_lang'])) {
     $fromCookie = $qtable_normalize_lang($_COOKIE['qtable_lang']);
     if ($fromCookie !== null && in_array($fromCookie, QTABLE_LANGS, true)) {
         $GLOBALS['qtable_lang'] = $fromCookie;
         if ($_COOKIE['qtable_lang'] === 'sp') {
-            setcookie('qtable_lang', 'es', [
-                'expires' => time() + 365 * 86400,
-                'path' => '/',
-                'samesite' => 'Lax',
-            ]);
+            setcookie('qtable_lang', 'es', $qtable_lang_cookie_opts());
         }
     }
 }
@@ -48,6 +58,17 @@ require_once __DIR__ . '/translations.php';
 function qtable_lang(): string
 {
     return $GLOBALS['qtable_lang'];
+}
+
+/** Registratie-URL met huidige taal (?lang=) + optioneel hash (plananker). */
+function qtable_register_url(string $fragment = ''): string
+{
+    $base = 'https://register.qtable.cloud';
+    $url = $base . '/?lang=' . rawurlencode($GLOBALS['qtable_lang']);
+    if ($fragment !== '') {
+        $url .= '#' . ltrim($fragment, '#');
+    }
+    return $url;
 }
 
 function qtable_html_lang(): string
@@ -98,7 +119,7 @@ function qtable_comparison_rows(): array
         ['data', 'comp_row_email_chat', ['dash', 'check', 'dash']],
         ['data', 'comp_row_dedicated', ['dash', 'dash', 'check']],
         ['data', 'comp_row_menu', ['check', 'check', 'check']],
-        ['data', 'comp_row_events', ['dash', 'check', 'check']],
+        ['data', 'comp_row_events', ['dash', 'dash', 'check']],
         ['data', 'comp_row_staff_perf', ['dash', 'check', 'check']],
         ['data', 'comp_row_visa_mc', ['dash', 'dash', 'check']],
         ['data', 'comp_row_white_label', ['dash', 'dash', 'check']],

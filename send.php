@@ -1,8 +1,9 @@
 <?php
 /**
- * Contactformulier verwerking - verstuurt naar info@qtable.cloud
+ * Contactformulier verwerking - verstuurt naar info@qtable.cloud (SMTP via register/.env, zie app/api/mail-helper.php)
  */
 require_once __DIR__ . '/includes/i18n.php';
+require_once dirname(__DIR__) . '/app/api/mail-helper.php';
 
 $lang = $_POST['lang'] ?? ($_COOKIE['qtable_lang'] ?? 'nl');
 if ($lang === 'sp') {
@@ -41,14 +42,7 @@ $body .= "E-mail: $email\n";
 $body .= "Bedrijf: $bedrijf\n\n";
 $body .= "Bericht:\n$bericht";
 
-$headers = [
-    'From: ' . $email,
-    'Reply-To: ' . $email,
-    'Content-Type: text/plain; charset=UTF-8',
-    'X-Mailer: PHP/' . phpversion()
-];
-
-$mail_sent = @mail($to, $subject, $body, implode("\r\n", $headers));
+$mail_sent = sendContactFormMail($to, $subject, $body, $email);
 
 if ($mail_sent) {
     header('Location: ' . $redirect . '&sent=1');

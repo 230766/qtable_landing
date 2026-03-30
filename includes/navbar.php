@@ -26,16 +26,17 @@
         </div>
         <a href="#verhaal" onclick="closeNav()"><?= htmlspecialchars(t('nav_story')) ?></a>
         <a href="#plannen" onclick="closeNav()"><?= htmlspecialchars(t('nav_plans')) ?></a>
+        <a href="#roi-calculator" onclick="closeNav()"><?= htmlspecialchars(t('nav_roi')) ?></a>
         <a href="#contact" onclick="closeNav()"><?= htmlspecialchars(t('nav_contact')) ?></a>
         <a href="https://demo.qtable.cloud/" target="_blank" rel="noopener noreferrer" class="nav-btn nav-demo nav-cta-mobile" onclick="closeNav()"><?= htmlspecialchars(t('nav_demo')) ?></a>
-        <a href="https://register.qtable.cloud" target="_blank" rel="noopener noreferrer" class="nav-btn nav-cta-mobile" onclick="closeNav()"><?= htmlspecialchars(t('nav_start')) ?></a>
+        <a href="<?= htmlspecialchars(qtable_register_url()) ?>" target="_blank" rel="noopener noreferrer" class="nav-btn nav-cta-mobile" onclick="closeNav()"><?= htmlspecialchars(t('nav_start')) ?></a>
     </div>
 
     <div class="nav-right">
         <a href="https://demo.qtable.cloud/" target="_blank" rel="noopener noreferrer" class="nav-btn nav-demo">
             <span><?= htmlspecialchars(t('nav_demo')) ?></span>
         </a>
-        <a href="https://register.qtable.cloud" target="_blank" rel="noopener noreferrer" class="nav-btn">
+        <a href="<?= htmlspecialchars(qtable_register_url()) ?>" target="_blank" rel="noopener noreferrer" class="nav-btn">
             <span><?= htmlspecialchars(t('nav_start')) ?></span>
         </a>
     </div>
