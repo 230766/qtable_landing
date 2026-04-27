@@ -100,7 +100,9 @@ if ($err_code === 'required') {
                     <?php for ($i = 1; $i <= 5; $i++): ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_s' . $i)) ?></li>
                     <?php endfor; ?>
+                    <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_incl_ui_st')) ?></li>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_translation_option')) ?></li>
+                    <li class="plan-feature-extra"><?= htmlspecialchars(t('plan_feat_lightspeed_starter')) ?></li>
                 </ul>
                 <a href="<?= htmlspecialchars(qtable_register_url('plan-starter')) ?>" target="_blank" rel="noopener noreferrer" class="plan-btn outline"><?= htmlspecialchars(t('plan_starter_btn')) ?></a>
                 <p class="plan-vat-note"><span class="plan-vat-asterisk" aria-hidden="true">*</span> <?= htmlspecialchars(t('plan_vat_note')) ?></p>
@@ -121,9 +123,10 @@ if ($err_code === 'required') {
                 </div>
                 <p class="plan-desc"><?= htmlspecialchars(t('plan_pro_desc')) ?></p>
                 <ul class="plan-features">
-                    <?php for ($i = 1; $i <= 6; $i++): ?>
+                    <?php for ($i = 1; $i <= 7; $i++): ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_p' . $i)) ?></li>
                     <?php endfor; ?>
+                    <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_incl_ui_pr')) ?></li>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_translation_option')) ?></li>
                 </ul>
                 <a href="<?= htmlspecialchars(qtable_register_url('plan-pro')) ?>" target="_blank" rel="noopener noreferrer" class="plan-btn primary"><?= htmlspecialchars(t('plan_pro_btn')) ?></a>
@@ -144,12 +147,37 @@ if ($err_code === 'required') {
                 </div>
                 <p class="plan-desc"><?= htmlspecialchars(t('plan_enterprise_desc')) ?></p>
                 <ul class="plan-features">
-                    <?php for ($i = 1; $i <= 8; $i++): ?>
+                    <?php for ($i = 1; $i <= 9; $i++): ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_e' . $i)) ?></li>
                     <?php endfor; ?>
+                    <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_incl_ui_en')) ?></li>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_translation_inc')) ?></li>
                 </ul>
                 <a href="<?= htmlspecialchars(qtable_register_url('plan-enterprise')) ?>" target="_blank" rel="noopener noreferrer" class="plan-btn outline"><?= htmlspecialchars(t('plan_enterprise_btn')) ?></a>
+                <p class="plan-vat-note"><span class="plan-vat-asterisk" aria-hidden="true">*</span> <?= htmlspecialchars(t('plan_vat_note')) ?></p>
+            </div>
+            <div class="plan-card plan-card--ultimate">
+                <span class="plan-badge plan-badge--ultimate"><?= htmlspecialchars(t('plan_badge_ultimate')) ?></span>
+                <h3 class="plan-name"><?= htmlspecialchars(t('plan_ultimate')) ?></h3>
+                <div class="plan-price js-plan-price" data-m="157" data-y="133" data-ytotal="1596">
+                    <div class="plan-price-main">
+                        <span class="js-plan-price-display">€157</span><span class="plan-price-asterisk">*</span><span class="plan-price-period"><?= htmlspecialchars(t('plan_per_month')) ?></span>
+                    </div>
+                    <div class="plan-price-yearly-line js-plan-yearly-line" hidden></div>
+                </div>
+                <div class="plan-discount-ticket js-plan-discount" aria-hidden="true">
+                    <span class="plan-discount-title"><?= htmlspecialchars(t('plan_discount_title')) ?></span>
+                    <span class="plan-discount-pct js-plan-discount-pct"></span>
+                    <span class="plan-discount-save js-plan-discount-save"></span>
+                </div>
+                <p class="plan-desc"><?= htmlspecialchars(t('plan_ultimate_desc')) ?></p>
+                <ul class="plan-features">
+                    <?php for ($i = 1; $i <= 6; $i++): ?>
+                    <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_u' . $i)) ?></li>
+                    <?php endfor; ?>
+                    <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_incl_ui_ul')) ?></li>
+                </ul>
+                <a href="<?= htmlspecialchars(qtable_register_url('plan-ultimate')) ?>" target="_blank" rel="noopener noreferrer" class="plan-btn ultimate"><?= htmlspecialchars(t('plan_ultimate_btn')) ?></a>
                 <p class="plan-vat-note"><span class="plan-vat-asterisk" aria-hidden="true">*</span> <?= htmlspecialchars(t('plan_vat_note')) ?></p>
             </div>
         </div>
@@ -160,6 +188,8 @@ if ($err_code === 'required') {
 
         <div class="comparison-wrap comparison-hidden" id="comparisonTable">
             <?php qtable_render_comparison_table(); ?>
+            <p class="comparison-footnote"><?= htmlspecialchars(t('comp_voice_addon_note')) ?></p>
+            <p class="comparison-footnote"><?= htmlspecialchars(t('comp_lightspeed_footnote')) ?></p>
         </div>
         </div>
     </section>

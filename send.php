@@ -5,13 +5,16 @@
 require_once __DIR__ . '/includes/i18n.php';
 require_once dirname(__DIR__) . '/app/api/mail-helper.php';
 
-$lang = $_POST['lang'] ?? ($_COOKIE['qtable_lang'] ?? 'nl');
-if ($lang === 'sp') {
-    $lang = 'es';
+$rawLang = $_POST['lang'] ?? ($_COOKIE['qtable_lang'] ?? 'nl');
+if (!is_string($rawLang)) {
+    $rawLang = 'nl';
 }
-if (!in_array($lang, QTABLE_LANGS, true)) {
-    $lang = 'nl';
-}
+$normalizedLang = qtable_normalize_lang($rawLang);
+$lang = ($normalizedLang !== null && in_array($normalizedLang, QTABLE_LANGS, true))
+    ? $normalizedLang
+    : 'nl';
+
+$GLOBALS['qtable_lang'] = $lang;
 
 $redirect = 'index.php?lang=' . rawurlencode($lang);
 
@@ -36,11 +39,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 $to = 'info@qtable.cloud';
-$subject = 'Contactformulier QTABLE - ' . ($bedrijf ?: 'Geen bedrijf opgegeven');
-$body = "Naam: $naam\n";
-$body .= "E-mail: $email\n";
-$body .= "Bedrijf: $bedrijf\n\n";
-$body .= "Bericht:\n$bericht";
+$subject = sprintf(t('contact_mail_subject'), $bedrijf !== '' ? $bedrijf : t('contact_mail_no_company'));
+$body = t('contact_mail_line_name') . ' ' . $naam . "\n";
+$body .= t('contact_mail_line_email') . ' ' . $email . "\n";
+$body .= t('contact_mail_line_company') . ' ' . $bedrijf . "\n\n";
+$body .= t('contact_mail_line_message_intro') . "\n" . $bericht;
 
 $mail_sent = sendContactFormMail($to, $subject, $body, $email);
 

@@ -17,12 +17,14 @@
     <div class="nav-links" id="navLinks">
         <div class="lang-switcher" role="group" aria-label="<?= htmlspecialchars(t('lang_switch_aria')) ?>">
             <?php
-            $labels = ['nl' => 'NL', 'es' => 'ES', 'en' => 'EN', 'fr' => 'FR'];
+            $labels = ['nl' => 'NL', 'es' => 'ES', 'en' => 'EN', 'fr' => 'FR', 'pt' => 'PT', 'tr' => 'TR'];
             foreach ($labels as $code => $label):
                 $active = qtable_lang() === $code ? ' is-active' : '';
             ?>
             <a href="index.php?lang=<?= htmlspecialchars($code) ?>" class="lang-link<?= $active ?>" data-lang="<?= htmlspecialchars($code) ?>"><?= htmlspecialchars($label) ?></a>
-            <?php endforeach; ?>
+            <?php endforeach;
+            unset($code, $label, $active, $labels);
+            ?>
         </div>
         <a href="#verhaal" onclick="closeNav()"><?= htmlspecialchars(t('nav_story')) ?></a>
         <a href="#plannen" onclick="closeNav()"><?= htmlspecialchars(t('nav_plans')) ?></a>
