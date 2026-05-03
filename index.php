@@ -147,7 +147,7 @@ if ($err_code === 'required') {
                 </div>
                 <p class="plan-desc"><?= htmlspecialchars(t('plan_enterprise_desc')) ?></p>
                 <ul class="plan-features">
-                    <?php for ($i = 1; $i <= 9; $i++): ?>
+                    <?php for ($i = 1; $i <= 8; $i++): ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_e' . $i)) ?></li>
                     <?php endfor; ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_incl_ui_en')) ?></li>
@@ -172,7 +172,7 @@ if ($err_code === 'required') {
                 </div>
                 <p class="plan-desc"><?= htmlspecialchars(t('plan_ultimate_desc')) ?></p>
                 <ul class="plan-features">
-                    <?php for ($i = 1; $i <= 6; $i++): ?>
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_feat_u' . $i)) ?></li>
                     <?php endfor; ?>
                     <li><span class="check">✔</span> <?= htmlspecialchars(t('plan_incl_ui_ul')) ?></li>
