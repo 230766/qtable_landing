@@ -164,6 +164,7 @@ function qtable_comparison_rows(): array
         ['data', 'comp_row_dashboard', ['t:comp_dashboard_basic', 't:comp_dashboard_extended', 't:comp_dashboard_full', 't:comp_dashboard_full']],
         ['data', 'comp_row_reports', ['dash', 't:comp_cell_pdf_csv', 't:comp_cell_scheduler', 't:comp_cell_scheduler']],
         ['data', 'comp_row_voice_agent', ['dash', 't:comp_voice_addon', 't:comp_voice_addon', 'check']],
+        ['data', 'comp_row_thankyou', ['dash', 'dash', 'dash', 'check']],
         ['data', 'comp_row_lightspeed', ['t:comp_lightspeed_addon', 'check', 'check', 'check']],
         ['data', 'comp_row_website', ['dash', 'dash', 'dash', 'check']],
         ['data', 'comp_row_domain_connect', ['dash', 'dash', 'dash', 'check']],
